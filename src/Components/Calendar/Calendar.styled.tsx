@@ -114,3 +114,29 @@ export const SideTag = styled.div<SideTagProps>`
   top: ${props => props.stickToTop ? `calc(${HEADER_HEIGHT}px + 15px)` : `${props.height}px`};
 
 `
+
+export const BackGroundTagList = styled.div`
+  height: 100%;
+  position: relative;
+
+  display: inline-block;
+  @media ${MEDIA.DESKTOP_SMALL} {
+    display: none;
+  }
+`
+
+interface BackgroundTagProps {
+  align: 'left' | 'right'
+  height: number
+}
+
+export const BackgroundTag = styled.div<BackgroundTagProps>`
+  position: absolute;
+  top: ${props => `${props.height}px`};
+  text-align: ${props => props.align};
+
+  color: #DDD;
+  font-size: 60px;
+
+  z-index: -2;
+`

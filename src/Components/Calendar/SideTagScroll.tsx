@@ -7,7 +7,7 @@ interface ScrollTag {
   height: number
 }
 
-interface Props {
+export interface Props {
   align: 'left' | 'right'
   items: ScrollTag[]
 }
