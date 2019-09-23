@@ -52,11 +52,7 @@ const App: React.FunctionComponent = () => {
   }
 
   return (
-    <div>
-      { appconfig.title }
-
-      <Calendar/>
-    </div>
+    <Calendar/>
   )
 }
 

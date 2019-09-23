@@ -25,9 +25,10 @@ const SideTagScroll: React.FunctionComponent<Props> = (props) => {
     <s.SideTagScroll>
       { props.items.map(item => 
         <s.SideTag
-        height={Math.max(item.height, scrollHeight)}
-        // height={item.height}
-        align={props.align}
+          key={item.text}
+          stickToTop={item.height < scrollHeight}
+          height={item.height}
+          align={props.align}
         >
           {item.text}
         </s.SideTag>

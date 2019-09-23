@@ -1,18 +1,35 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-import { GRID_HEIGHT } from '../../utils/style'
-
-const HeaderHeight = '40px'
+import { 
+  HEADER_HEIGHT, 
+  GRID_HEIGHT, 
+  MID_APP_WIDTH, 
+  LARGE_APP_WIDTH,
+  MEDIA 
+} from '../../utils/style'
 
 
 export const Calendar = styled.div`
-  max-width: 900px;
   margin: auto;
+  max-width: ${MID_APP_WIDTH}px;
+
+  @media ${MEDIA.TABLET_LANDSCAPE} {
+    max-width: ${LARGE_APP_WIDTH}px;
+  }
+  
 `
 
 export const CalendarGrid = styled.div`
   display: inline-block;
-  width: 80%;
+
+  width: 100%;
+  @media ${MEDIA.DESKTOP_SMALL} {
+    width: calc(${MID_APP_WIDTH}px * 0.7);
+  }
+
+  @media ${MEDIA.TABLET_LANDSCAPE} {
+    width: calc(${LARGE_APP_WIDTH}px * 0.8);
+  }
 `
 
 export const DaysHeader = styled.div`
@@ -21,18 +38,26 @@ export const DaysHeader = styled.div`
   top: 0;
   z-index: 2;
   background-color: #FFF;
-  width: calc(900px * 0.8);
+
+  width: 100%;
+  @media ${MEDIA.DESKTOP_SMALL} {
+    width: calc(${MID_APP_WIDTH}px * 0.7);
+  }
+
+  @media ${MEDIA.TABLET_LANDSCAPE} {
+    width: calc(${LARGE_APP_WIDTH}px * 0.8);
+  }
 `
 
 export const DayHeaderCell = styled.div`
   width: calc(100% / 7);
-  border: 1px solid black;
   text-align: center;
-  height: ${HeaderHeight};
+  height: ${HEADER_HEIGHT}px;
+  overflow: hidden;
 `
 
 export const DaysBody = styled.div`
-  padding-top: ${HeaderHeight};
+  padding-top: ${HEADER_HEIGHT}px;
   display: flex;
   flex-wrap: wrap;
 `
@@ -46,7 +71,6 @@ interface DayCellProps {
 export const DayCell = styled.div<DayCellProps>`
   text-align: center;
 
-
   width: ${props => props.showRightBorder ? 'calc((100% / 7) - 2px)' : 'calc(100% / 7)'};
   height: ${props => props.showBottomBorder ? `calc(${GRID_HEIGHT}px - 2px)` : `${GRID_HEIGHT}px`};
 
@@ -58,23 +82,35 @@ export const DayCell = styled.div<DayCellProps>`
 
 export const SideTagScroll = styled.div`
   height: 100%;
-  width: calc(10%);
-  display: inline-block;
+  width: calc(${MID_APP_WIDTH}px * 0.15);
+  /* display: inline-block; */
   position: relative;
+
+  display: none;
+  @media ${MEDIA.DESKTOP_SMALL} {
+    display: inline-block;
+  }
+
+  @media ${MEDIA.TABLET_LANDSCAPE} {
+    width: calc(${LARGE_APP_WIDTH}px * 0.1);
+  }
 `
 
 interface SideTagProps {
   align: 'left' | 'right'
   height: number
+  stickToTop: boolean
 }
+
 
 export const SideTag = styled.div<SideTagProps>`
   text-align: ${props => props.align};
-  position: absolute;
+  position: ${props => props.stickToTop ? 'fixed' : 'absolute'};
 
   background-color: white;
-  width: 90%;
+  width: 100px;
   margin: auto;
 
-  top: ${props => `${props.height}px`};
+  top: ${props => props.stickToTop ? `calc(${HEADER_HEIGHT}px + 15px)` : `${props.height}px`};
+
 `
