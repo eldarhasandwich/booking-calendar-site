@@ -1,2 +1,2 @@
-# Booking calendar site
+# Booking Calendar Site
 
