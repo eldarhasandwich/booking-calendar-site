@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as agent from 'superagent'
 
+import Calendar from './Calendar/Calendar'
+
 import config from '../Config/production.json'
 
 enum HttpStatus {
@@ -19,18 +21,16 @@ const App: React.FunctionComponent = () => {
 
   React.useEffect(() => {
     const configHost = config.configHost
-
     agent
       .get(configHost)
       .end((err, res) => {
         console.log({ err, res })
-
         if (err || !res) {
           setGetconfigStatus(HttpStatus.Error)
           return
         }
-
-        setAppConfig(res.body)
+        const c = JSON.parse(res.text)
+        setAppConfig(c)
         setGetconfigStatus(HttpStatus.Success)
       })
   }, [])
@@ -55,7 +55,7 @@ const App: React.FunctionComponent = () => {
     <div>
       { appconfig.title }
 
-      This is an app
+      <Calendar/>
     </div>
   )
 }
