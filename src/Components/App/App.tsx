@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as agent from 'superagent'
 
-import Calendar from './Calendar/Calendar'
+import Calendar from '../Calendar/Calendar'
+import config from '../../Config/production.json'
 
-import config from '../Config/production.json'
+import * as s from './App.styled'
 
 enum HttpStatus {
   Loading,
@@ -52,7 +53,10 @@ const App: React.FunctionComponent = () => {
   }
 
   return (
-    <Calendar/>
+    <>
+      <s.AppBackground/>
+      <Calendar/>
+    </>
   )
 }
 

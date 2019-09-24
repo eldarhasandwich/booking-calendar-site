@@ -106,6 +106,7 @@ const Calendar: React.FunctionComponent = () => {
           { cells.map((cell, index) => {
             const showBottom = index + 7 < cells.length && cells[index].month !== cells[index + 7].month
             const showRight = index + 1 < cells.length && cells[index].month !== cells[index + 1].month && cell.day !== 6
+
             return (
               <DayCell 
                 key={index}

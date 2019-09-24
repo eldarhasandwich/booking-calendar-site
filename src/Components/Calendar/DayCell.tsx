@@ -9,6 +9,7 @@ interface Props {
   year: number
   showBottomBorder?: boolean
   showRightBorder?: boolean
+  greyOut?: boolean
 }
 
 const DayCell: React.FunctionComponent<Props> = (props) => {
@@ -17,8 +18,12 @@ const DayCell: React.FunctionComponent<Props> = (props) => {
     <s.DayCell
       showBottomBorder={props.showBottomBorder}
       showRightBorder={props.showRightBorder}
+      greyOut={props.greyOut}
     >
-      { `${props.date}` }
+      <s.DayCellInterior>
+        <br/>
+        { `${props.date}` }
+      </s.DayCellInterior>
     </s.DayCell>
   )
 }

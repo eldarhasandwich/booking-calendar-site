@@ -5,13 +5,15 @@ import {
   GRID_HEIGHT, 
   MID_APP_WIDTH, 
   LARGE_APP_WIDTH,
-  MEDIA 
+  MEDIA,
+  NO_SELECT
 } from '../../utils/style'
 
 
 export const Calendar = styled.div`
   margin: auto;
   max-width: ${MID_APP_WIDTH}px;
+  ${NO_SELECT}
 
   @media ${MEDIA.TABLET_LANDSCAPE} {
     max-width: ${LARGE_APP_WIDTH}px;
@@ -21,6 +23,7 @@ export const Calendar = styled.div`
 
 export const CalendarGrid = styled.div`
   display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
 
   width: 100%;
   @media ${MEDIA.DESKTOP_SMALL} {
@@ -37,7 +40,11 @@ export const DaysHeader = styled.div`
   position: fixed;
   top: 0;
   z-index: 2;
-  background-color: #FFF;
+
+  font-family: cursive;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
 
   width: 100%;
   @media ${MEDIA.DESKTOP_SMALL} {
@@ -71,13 +78,25 @@ interface DayCellProps {
 export const DayCell = styled.div<DayCellProps>`
   text-align: center;
 
-  width: ${props => props.showRightBorder ? 'calc((100% / 7) - 2px)' : 'calc(100% / 7)'};
-  height: ${props => props.showBottomBorder ? `calc(${GRID_HEIGHT}px - 2px)` : `${GRID_HEIGHT}px`};
+  width: ${props => props.showRightBorder ? 'calc((100% / 7) - 1px)' : 'calc(100% / 7)'};
+  height: ${props => props.showBottomBorder ? `calc(${GRID_HEIGHT}px - 1px)` : `${GRID_HEIGHT}px`};
 
   background-color: ${props => props.greyOut && 'grey'};
 
-  border-bottom: ${props => props.showBottomBorder && '2px solid black'};
-  border-right: ${props => props.showRightBorder && '2px solid black'};
+  border-bottom: ${props => props.showBottomBorder && '1px solid #555'};
+  border-right: ${props => props.showRightBorder && '1px solid #555'};
+`
+
+export const DayCellInterior = styled.div`
+  height: 100%;
+
+  border-radius: 4px;
+  color: white;
+
+  transition: all .2s ease-in;
+  :hover {
+    background-color: rgba(255,255,255, 0.3);
+  }
 `
 
 export const SideTagScroll = styled.div`
@@ -100,14 +119,21 @@ interface SideTagProps {
   align: 'left' | 'right'
   height: number
   stickToTop: boolean
+  visible: boolean
 }
-
 
 export const SideTag = styled.div<SideTagProps>`
   text-align: ${props => props.align};
   position: ${props => props.stickToTop ? 'fixed' : 'absolute'};
+  font-family: cursive;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
 
-  background-color: white;
+  transition: opacity .1s ease-in;
+  opacity: ${props => props.visible ? '1' : '0'};
+
+  /* background-color: white; */
   width: 100px;
   margin: auto;
 
@@ -134,8 +160,10 @@ export const BackgroundTag = styled.div<BackgroundTagProps>`
   position: absolute;
   top: ${props => `${props.height}px`};
   text-align: ${props => props.align};
+  font-family: cursive;
+  color: white;
 
-  color: #DDD;
+  color: rgba(255,255,255, 0.2);
   font-size: 60px;
 
   z-index: -2;

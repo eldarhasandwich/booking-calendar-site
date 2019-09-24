@@ -23,15 +23,21 @@ const SideTagScroll: React.FunctionComponent<Props> = (props) => {
 
   return (
     <s.SideTagScroll>
-      { props.items.map(item => 
-        <s.SideTag
-          key={item.text}
-          stickToTop={item.height < scrollHeight}
-          height={item.height}
-          align={props.align}
-        >
-          {item.text}
-        </s.SideTag>
+      { props.items.map((item, index) => {
+        const nextItem = props.items[index + 1]
+        const nextItemVisible = !!nextItem ? nextItem.height > scrollHeight + 30 : true
+
+        return (
+          <s.SideTag
+            key={index}
+            stickToTop={item.height < scrollHeight}
+            height={item.height}
+            align={props.align}
+            visible={nextItemVisible}
+          >
+            {item.text}
+          </s.SideTag>
+        )}
       )}
     </s.SideTagScroll>
   )
